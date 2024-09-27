@@ -9,7 +9,7 @@ categories: jekyll update
 ZendaNext enables simple SQL access to complex, secured, asynchronous JSON APIs.
 
 ```sql
-D SELECT name, address, occupation FROM zenda("my_rest_api", auth=true, max_concurrent_requests=10);
+D SELECT name, address, occupation FROM zenda("peeps", auth=true, max_concurrent_requests=10);
 ┌────────────────┬────────────────┬────────────┐
 │      name      │    address     │ occupation │
 │    varchar     │    varchar     │  varchar   │
@@ -49,6 +49,12 @@ D SELECT name, address, occupation FROM zenda("my_rest_api", auth=true, max_conc
                 },
                 "schema": {
                     "uri": "schema"
+                },
+                "auth":{
+                  "url": "https://auth.localhost:3443",
+                  "user": "myaccount",
+                  "scope": "myscope",
+                  "type": "oidc"
                 }
             },
             "async": {
@@ -56,10 +62,6 @@ D SELECT name, address, occupation FROM zenda("my_rest_api", auth=true, max_conc
                     "method": "POST",
                     "uri": "async/submit",
                     "headers": [
-                        {
-                            "key": "Authorization",
-                            "value": "Bearer YOUR_TOKEN"
-                        },
                         {   "key": "Content-Type",
                             "value": "application/json"
                         }
