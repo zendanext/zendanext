@@ -9,7 +9,7 @@ categories: jekyll update
 ZendaNext enables simple SQL access to complex, secured, asynchronous JSON APIs.
 
 ```sql
-D SELECT name, address, occupation FROM rest_api("my_rest_api", auth=true, max_concurrent_requests=10);
+D SELECT name, address, occupation FROM zenda("my_rest_api", auth=true, max_concurrent_requests=10);
 ┌────────────────┬────────────────┬────────────┐
 │      name      │    address     │ occupation │
 │    varchar     │    varchar     │  varchar   │
@@ -31,3 +31,152 @@ D SELECT name, address, occupation FROM rest_api("my_rest_api", auth=true, max_c
 └──────────────────────────────────────────────┘
 ```
 
+
+### config
+
+
+```json
+[
+    {
+        "name": "peeps",
+        "config": {
+            "host": "localhost",
+            "port": 3000,
+            "root_uri": "",
+            "endpoints": {
+                "data": {
+                    "uri": "data"
+                },
+                "schema": {
+                    "uri": "schema"
+                }
+            },
+            "async": {
+                "submit": {
+                    "method": "POST",
+                    "uri": "async/submit",
+                    "headers": [
+                        {
+                            "key": "Authorization",
+                            "value": "Bearer YOUR_TOKEN"
+                        },
+                        {   "key": "Content-Type",
+                            "value": "application/json"
+                        }
+                    ]
+                },
+                "check": {
+                    "method": "GET",
+                    "uri": "async/check/{id}",
+                    "params": [
+                        {
+                            "key": "id",
+                            "value": "{id}"
+                        }
+                    ]
+                },
+                "fetch": {
+                    "method": "GET",
+                    "uri": "async/fetch/{id}",
+                    "params": [
+                        {
+                            "key": "id",
+                            "value": "{id}"
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    {
+        "name": "animals",
+        "config": {
+            "host": "freetestapi.com",
+            "port": 443,
+            "root_uri": "api",
+            "endpoints": {
+                "data": {
+                    "uri": "v1/animals"
+                },
+                "schema": {
+                    "uri": "site/animals"
+                }
+            }
+        }
+    },
+    {
+        "name": "cars",
+        "config": {
+            "host": "freetestapi.com",
+            "port": 443,
+            "root_uri": "api",
+            "endpoints": {
+                "data": {
+                    "uri": "v1/cars"
+                },
+                "schema": {
+                    "uri": "site/cars"
+                }
+            },
+            "schema": [
+                {
+                    "name": "id",
+                    "type": "number"
+                },
+                {
+                    "name": "make",
+                    "type": "string"
+                },
+                {
+                    "name": "model",
+                    "type": "string"
+                },
+                {
+                    "name": "year",
+                    "type": "number"
+                },
+                {
+                    "name": "color",
+                    "type": "string"
+                },
+                {
+                    "name": "mileage",
+                    "type": "number"
+                },
+                {
+                    "name": "price",
+                    "type": "number"
+                },
+                {
+                    "name": "fuelType",
+                    "type": "string"
+                },
+                {
+                    "name": "transmission",
+                    "type": "string"
+                },
+                {
+                    "name": "engine",
+                    "type": "string"
+                },
+                {
+                    "name": "horsepower",
+                    "type": "number"
+                },
+                {
+                    "name": "features",
+                    "type": "array"
+                },
+                {
+                    "name": "owners",
+                    "type": "number"
+                },
+                {
+                    "name": "image",
+                    "type": "string"
+                }
+            ]
+        }
+    }
+]
+```
